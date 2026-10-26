@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assets/js/preview-gate.js"></script>
     <title>بلاگ دنیارو</title>
-    <link
-      rel="stylesheet"
-      href="assets/vendor/splide/splide-core.min.css"
-    />
+    <link rel="stylesheet" href="assets/vendor/splide/splide-core.min.css" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="assets/js/site-chrome.js" defer></script>
+    <script src="assets/js/blog-content.js" defer></script>
   </head>
   <body>
+    <div class="site-header-host" data-site-header></div>
     <!-- <main>
       <h1 class="head">دنیارو کامل ترین مرجمع اطلاعات قبل از سفر</h1>
       <section class="blog-landing" aria-label="مقالات منتخب دنیارو">
@@ -105,8 +106,9 @@
     </main> -->
     <main>
       <section class="blog-landing">
+        <h1 class="heading">دنیارو . دنیاتو سفر کن</h1>
         <div class="blog-grid">
-          <div class="grid-large">
+          <div class="grid-large" data-featured-article="isfahan-shopping">
             <img
               class="hero"
               src="assets/images/flight.jpg"
@@ -132,8 +134,8 @@
               </div>
 
               <a
-                href="/blog/flight-options/"
-                aria-label="ادامه نوشته گزینه‌های متنوع برای کاربران"
+                href="single.html?article=isfahan-shopping"
+                aria-label="ادامه نوشته بهترین مراکز خرید اصفهان"
               >
                 <span class="paragraph">ادامه نوشته</span>
                 <img
@@ -145,7 +147,10 @@
           </div>
 
           <div class="grid-small-group">
-            <div class="grid-small grid-small--top">
+            <div
+              class="grid-small grid-small--top"
+              data-featured-article="best-time-dubai"
+            >
               <img
                 src="assets/images/dubai.jpg"
                 alt="نمای شهر دبی و برج خلیفه در غروب"
@@ -158,14 +163,18 @@
                 </h2>
               </div>
               <a
-                href="/blog/travel-to-dubai/"
+                class="featured-card__cta"
+                href="single.html?article=best-time-dubai"
                 aria-label="مطالعه راهنمای سفر به دبی"
               >
                 <img src="assets/icons/arrow-left.svg" alt="" />
               </a>
             </div>
 
-            <div class="grid-small grid-small--bottom">
+            <div
+              class="grid-small grid-small--bottom"
+              data-featured-article="best-time-istanbul"
+            >
               <img
                 src="assets/images/istanbul.jpg"
                 alt="مسجد اورتاکوی و تنگه بسفر در استانبول"
@@ -173,13 +182,14 @@
               />
               <div class="image-gradient" aria-hidden="true"></div>
               <h2 class="visually-hidden">بهترین زمان سفر به استانبول</h2>
-              <div class="cutout" aria-hidden="true">
+              <div class="cutout">
                 <p class="">
                   بهترین مراکز خرید اصفهان؛ از بازارهای سنتی تا پاساژهای مدرن
                 </p>
               </div>
               <a
-                href="/blog/best-time-to-visit-istanbul/"
+                class="featured-card__cta"
+                href="single.html?article=best-time-istanbul"
                 aria-label="ادامه نوشته بهترین زمان سفر به استانبول"
               >
                 <span class="paragraph">ادامه<br />نوشته</span>
@@ -191,29 +201,42 @@
       </section>
 
       <section
-        class="blog-card-preview splide"
-        aria-label="مقالات پیشنهادی دنیارو"
+        class="blog-card-preview article-section splide"
+        id="latest-articles"
+        aria-label="جدیدترین مقالات دنیارو"
         data-article-carousel
+        data-article-list="latest"
       >
-        <div class="splide__arrows">
-          <button
-            class="splide__arrow splide__arrow--next"
-            type="button"
-            aria-label="اسلاید بعدی"
+        <div class="article-section__header">
+          <h2 class="heading">جدیدترین مقالات</h2>
+          <a
+            class="article-section__all"
+            href="category.html?category=latest"
           >
+            <span>مشاهده همه</span>
             <img src="assets/icons/arrow-left.svg" alt="" />
-          </button>
-          <button
-            class="splide__arrow splide__arrow--prev"
-            type="button"
-            aria-label="اسلاید قبلی"
-          >
-            <img src="assets/icons/arrow-left.svg" alt="" />
-          </button>
+          </a>
         </div>
+        <div class="article-section__carousel">
+          <div class="splide__arrows">
+            <button
+              class="splide__arrow splide__arrow--next"
+              type="button"
+              aria-label="اسلاید بعدی"
+            >
+              <img src="assets/icons/arrow-left.svg" alt="" />
+            </button>
+            <button
+              class="splide__arrow splide__arrow--prev"
+              type="button"
+              aria-label="اسلاید قبلی"
+            >
+              <img src="assets/icons/arrow-left.svg" alt="" />
+            </button>
+          </div>
 
-        <div class="splide__track">
-          <ul class="splide__list">
+          <div class="splide__track">
+            <ul class="splide__list">
             <li class="splide__slide">
               <article class="article-card">
                 <img
@@ -238,7 +261,7 @@
 
                 <a
                   class="article-card__cta"
-                  href="/blog/travel-to-istanbul/"
+                  href="single.html?article=travel-to-istanbul"
                   aria-label="خواندن ادامه نوشته راهنمای سفر به استانبول"
                 >
                   <span aria-hidden="true">خواندن<br />ادامه<br />نوشته</span>
@@ -271,7 +294,7 @@
 
                 <a
                   class="article-card__cta"
-                  href="/blog/best-time-to-visit-dubai/"
+                  href="single.html?article=best-time-dubai"
                   aria-label="خواندن ادامه نوشته بهترین زمان سفر به دبی"
                 >
                   <span aria-hidden="true">خواندن<br />ادامه<br />نوشته</span>
@@ -304,7 +327,7 @@
 
                 <a
                   class="article-card__cta"
-                  href="/blog/kish-attractions/"
+                  href="single.html?article=kish-attractions"
                   aria-label="خواندن ادامه نوشته جاهای دیدنی کیش"
                 >
                   <span aria-hidden="true">خواندن<br />ادامه<br />نوشته</span>
@@ -337,7 +360,7 @@
 
                 <a
                   class="article-card__cta"
-                  href="/blog/flight-ticket-guide/"
+                  href="single.html?article=flight-ticket-guide"
                   aria-label="خواندن ادامه نوشته راهنمای خرید بلیط هواپیما"
                 >
                   <span aria-hidden="true">خواندن<br />ادامه<br />نوشته</span>
@@ -370,7 +393,7 @@
 
                 <a
                   class="article-card__cta"
-                  href="/blog/travel-to-tbilisi/"
+                  href="single.html?article=travel-to-tbilisi"
                   aria-label="خواندن ادامه نوشته راهنمای سفر به تفلیس"
                 >
                   <span aria-hidden="true">خواندن<br />ادامه<br />نوشته</span>
@@ -403,7 +426,7 @@
 
                 <a
                   class="article-card__cta"
-                  href="/blog/affordable-travel-destinations/"
+                  href="single.html?article=affordable-travel-destinations"
                   aria-label="خواندن ادامه نوشته بهترین مقاصد اقتصادی سفر"
                 >
                   <span aria-hidden="true">خواندن<br />ادامه<br />نوشته</span>
@@ -411,10 +434,14 @@
                 </a>
               </article>
             </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </section>
+
+      <div data-homepage-sections></div>
     </main>
+    <footer class="site-footer" data-site-footer></footer>
     <script src="assets/vendor/splide/splide.min.js" defer></script>
     <script src="assets/js/blog-carousel.js" defer></script>
   </body>
