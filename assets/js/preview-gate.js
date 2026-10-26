@@ -2,7 +2,7 @@
   "use strict";
 
   const storageKey = "donyaro-preview-access";
-  const allowedCodes = new Set(["hajhosserin", "asghar"]);
+  const allowedCodes = new Set(["hossein", "asghar"]);
   const root = document.documentElement;
   let accessGranted = false;
 
