@@ -1870,6 +1870,7 @@ h3 {
 @media (max-width: 767px) {
   .blog-grid {
     width: 100%;
+    min-width: 0;
     grid-template-columns: 1fr;
   }
 
@@ -1879,19 +1880,14 @@ h3 {
   }
 
   .grid-small-group {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
 
   .grid-small {
+    width: 100%;
     aspect-ratio: 1;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 420px) {
-  .grid-small-group {
-    grid-template-columns: 1fr;
   }
 }
 

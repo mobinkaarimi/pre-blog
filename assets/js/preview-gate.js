@@ -1,71 +1,34 @@
 (() => {
   "use strict";
 
-  const storageKey = "donyaro-preview-unlocked";
-  const allowedCodes = new Set(["hajhossein", "asghar"]);
+  const storageKey = "donyaro-preview-access";
+  const allowedCodes = new Set(["hajhosserin", "asghar"]);
   const root = document.documentElement;
-  let isUnlocked = false;
-
-  root.style.visibility = "hidden";
+  let accessGranted = false;
 
   try {
-    isUnlocked = window.sessionStorage.getItem(storageKey) === "1";
+    accessGranted = window.sessionStorage.getItem(storageKey) === "granted";
   } catch {
-    isUnlocked = false;
+    accessGranted = false;
   }
 
-  if (!isUnlocked) {
+  if (!accessGranted) {
     const enteredCode = window.prompt(
       "برای مشاهده نسخه پیش‌نمایش، کد دسترسی را وارد کنید:",
     );
 
-    isUnlocked = allowedCodes.has(enteredCode);
+    accessGranted = allowedCodes.has(enteredCode);
 
-    if (isUnlocked) {
+    if (accessGranted) {
       try {
-        window.sessionStorage.setItem(storageKey, "1");
+        window.sessionStorage.setItem(storageKey, "granted");
       } catch {
         // The current page remains unlocked if storage is unavailable.
       }
     }
   }
 
-  if (isUnlocked) {
-    root.style.visibility = "";
-    return;
+  if (accessGranted) {
+    root.classList.remove("preview-locked");
   }
-
-  document.open();
-  document.write(`<!doctype html>
-    <html lang="fa" dir="rtl">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>دسترسی محدود | دنیارو</title>
-        <style>
-          * { box-sizing: border-box; }
-          html, body { min-height: 100%; }
-          body {
-            display: grid;
-            place-items: center;
-            margin: 0;
-            padding: 1.5rem;
-            color: #2a2b35;
-            font-family: system-ui, sans-serif;
-            text-align: center;
-            background: #fff;
-          }
-          main { max-width: 30rem; }
-          h1 { margin: 0 0 0.75rem; font-size: 1.5rem; }
-          p { margin: 0; line-height: 1.8; }
-        </style>
-      </head>
-      <body>
-        <main>
-          <h1>دسترسی امکان‌پذیر نیست</h1>
-          <p>کد واردشده صحیح نبود. برای تلاش دوباره، صفحه را تازه‌سازی کنید.</p>
-        </main>
-      </body>
-    </html>`);
-  document.close();
 })();
