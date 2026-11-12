@@ -1,7 +1,5 @@
 .single-article {
   --single-accent: #e20074;
-  --single-text: #22232a;
-  --single-muted: #4e5058;
   --hero-radius: clamp(1.25rem, 2.4vw, 2rem);
   --hero-curve: clamp(2.5rem, 5vw, 4.25rem);
   --hero-overlap: clamp(5rem, 9vw, 7rem);
@@ -11,7 +9,7 @@
   max-width: 75rem;
   padding-block: clamp(1rem, 3vw, 2.5rem) 0;
   margin-inline: auto;
-  color: var(--single-text);
+  color: var(--text-primary);
   direction: rtl;
 
   & .single-article__post {
@@ -98,7 +96,7 @@
       position: relative;
       z-index: 1;
       margin: 0;
-      color: #15161a;
+      color: var(--text-primary);
       font-size: clamp(2rem, 4.2vw, 3.75rem);
       font-weight: var(--type-h1-weight);
       line-height: 1.45;
@@ -121,7 +119,7 @@
     width: 100%;
     /* max-width: 51.25rem; */
     margin-inline: auto;
-    color: var(--single-muted);
+    color: var(--text-secondary);
     font-size: var(--type-article-size);
     font-weight: var(--type-body-weight);
     line-height: var(--type-article-line-height);
@@ -129,7 +127,7 @@
   }
 
   & .article-body__lead {
-    color: #34353c;
+    color: var(--text-secondary);
     font-size: var(--type-article-size);
     font-weight: var(--type-body-weight);
     line-height: var(--type-article-line-height);
@@ -148,7 +146,7 @@
   }
 
   & .article-body h2 {
-    color: #1d1e24;
+    color: var(--text-primary);
     font-size: var(--type-h2-size);
     font-weight: var(--type-h2-weight);
     line-height: var(--type-h2-line-height);
@@ -166,7 +164,7 @@
 
   & .article-body h3 {
     margin-top: 2rem;
-    color: #292a31;
+    color: var(--text-primary);
     font-size: var(--type-h3-size);
     font-weight: var(--type-h3-weight);
     line-height: var(--type-h3-line-height);
@@ -197,7 +195,7 @@
   }
 
   & .article-body strong {
-    color: #24252b;
+    color: var(--text-primary);
     font-weight: 700;
   }
 }

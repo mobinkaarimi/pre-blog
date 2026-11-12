@@ -1,5 +1,6 @@
 (() => {
-  const scriptSource = document.currentScript?.src || "assets/js/blog-content.js";
+  const scriptSource =
+    document.currentScript?.src || "assets/js/blog-content.js";
   const assetRoot = new URL("../", scriptSource).href;
 
   const categories = {
@@ -29,7 +30,8 @@
       category: "travel-guide",
       image: "istanbul.jpg",
       alt: "مسجد اورتاکوی و تنگه بسفر در استانبول",
-      excerpt: "از انتخاب زمان مناسب تا شناخت محله‌ها و حمل‌ونقل شهری، برای سفر به استانبول آماده شوید.",
+      excerpt:
+        "از انتخاب زمان مناسب تا شناخت محله‌ها و حمل‌ونقل شهری، برای سفر به استانبول آماده شوید.",
       lead: "استانبول شهری میان آسیا و اروپا است که محله‌های تاریخی، بازارهای رنگارنگ و ساحل بسفر را کنار هم دارد. برنامه‌ریزی درست کمک می‌کند زمان سفر را بهتر مدیریت کنید.",
       points: [
         "برای بازدید از بخش‌های مختلف شهر، برنامه هر روز را بر اساس یک منطقه تنظیم کنید.",
@@ -44,7 +46,8 @@
       category: "travel-guide",
       image: "dubai.jpg",
       alt: "نمای شهر دبی و برج خلیفه",
-      excerpt: "فصل مناسب سفر به دبی را با توجه به آب‌وهوا، رویدادها و بودجه سفرتان انتخاب کنید.",
+      excerpt:
+        "فصل مناسب سفر به دبی را با توجه به آب‌وهوا، رویدادها و بودجه سفرتان انتخاب کنید.",
       lead: "دبی در بیشتر روزهای سال آفتابی است، اما دما و هزینه سفر در فصل‌های مختلف تفاوت زیادی دارد. انتخاب زمان مناسب به نوع تفریح و بودجه شما بستگی دارد.",
       points: [
         "ماه‌های خنک‌تر برای پیاده‌روی، ساحل و برنامه‌های فضای باز مناسب‌تر هستند.",
@@ -59,7 +62,8 @@
       category: "iran-tourism",
       image: "kish.jpg",
       alt: "ساحل جزیره کیش",
-      excerpt: "با دیدنی‌های طبیعی، تاریخی و تفریحی کیش آشنا شوید و برنامه سفر متنوعی بچینید.",
+      excerpt:
+        "با دیدنی‌های طبیعی، تاریخی و تفریحی کیش آشنا شوید و برنامه سفر متنوعی بچینید.",
       lead: "کیش علاوه بر ساحل و تفریحات دریایی، دیدنی‌های تاریخی و مسیرهای آرام برای دوچرخه‌سواری دارد. با یک برنامه متعادل می‌توانید تجربه‌های متنوع جزیره را ببینید.",
       points: [
         "ساعات خنک صبح و غروب را برای ساحل‌گردی و فعالیت‌های فضای باز انتخاب کنید.",
@@ -74,7 +78,8 @@
       category: "travel-guide",
       image: "flight.jpg",
       alt: "نمای بال هواپیما در میان ابرها",
-      excerpt: "برای انتخاب پرواز مناسب، قیمت، قوانین بلیط و زمان حرکت را با دقت مقایسه کنید.",
+      excerpt:
+        "برای انتخاب پرواز مناسب، قیمت، قوانین بلیط و زمان حرکت را با دقت مقایسه کنید.",
       lead: "خرید بلیط هواپیما فقط به پیدا کردن کمترین قیمت محدود نمی‌شود. ساعت پرواز، میزان بار، قوانین تغییر و استرداد و موقعیت فرودگاه بر کیفیت سفر اثر دارند.",
       points: [
         "پیش از پرداخت، نام مسافر و تاریخ و مسیر پرواز را دوباره بررسی کنید.",
@@ -89,7 +94,8 @@
       category: "world-tourism",
       image: "tbilisi.jpg",
       alt: "نمای شهر تفلیس در گرجستان",
-      excerpt: "محله‌های قدیمی، غذاهای محلی و چشم‌اندازهای تفلیس را در یک برنامه سفر جمع‌وجور بشناسید.",
+      excerpt:
+        "محله‌های قدیمی، غذاهای محلی و چشم‌اندازهای تفلیس را در یک برنامه سفر جمع‌وجور بشناسید.",
       lead: "تفلیس با کوچه‌های قدیمی، معماری متنوع و کافه‌های کوچک، مقصدی مناسب برای یک سفر شهری است. بخش زیادی از دیدنی‌های مرکز شهر را می‌توان پیاده کشف کرد.",
       points: [
         "برای شناخت بافت تاریخی، گشت را از تفلیس قدیم و حمام‌های گوگردی آغاز کنید.",
@@ -104,7 +110,8 @@
       category: "world-tourism",
       image: "georgia.jpg",
       alt: "چشم‌انداز کوهستانی گرجستان",
-      excerpt: "با انتخاب مقصد و زمان مناسب، هزینه‌های اقامت، رفت‌وآمد و تفریح را بهتر مدیریت کنید.",
+      excerpt:
+        "با انتخاب مقصد و زمان مناسب، هزینه‌های اقامت، رفت‌وآمد و تفریح را بهتر مدیریت کنید.",
       lead: "سفر اقتصادی به معنی حذف تجربه‌های خوب نیست. انتخاب مقصد، فصل خلوت و برنامه‌ریزی برای هزینه‌های روزانه می‌تواند بودجه سفر را کنترل‌پذیر کند.",
       points: [
         "هزینه کلی مقصد را با احتساب اقامت، حمل‌ونقل و خوراک مقایسه کنید.",
@@ -119,7 +126,8 @@
       category: "iran-tourism",
       image: "isfahan.jpg",
       alt: "معماری تاریخی اصفهان",
-      excerpt: "بازارهای قدیمی و مراکز خرید جدید اصفهان را برای خرید سوغات و گردش شهری بشناسید.",
+      excerpt:
+        "بازارهای قدیمی و مراکز خرید جدید اصفهان را برای خرید سوغات و گردش شهری بشناسید.",
       lead: "خرید در اصفهان فرصتی برای دیدن صنایع‌دستی، معماری بازارهای تاریخی و مراکز تجاری جدید است. انتخاب محل خرید به سلیقه، زمان و محدوده اقامت شما بستگی دارد.",
       points: [
         "برای صنایع‌دستی و سوغات، بازار بزرگ اصفهان و حجره‌های اطراف میدان نقش جهان را ببینید.",
@@ -134,7 +142,8 @@
       category: "travel-guide",
       image: "istanbul.jpg",
       alt: "مسجد اورتاکوی و تنگه بسفر در استانبول",
-      excerpt: "آب‌وهوا، شلوغی و هزینه‌ها را مقایسه کنید تا فصل مناسب سفر به استانبول را پیدا کنید.",
+      excerpt:
+        "آب‌وهوا، شلوغی و هزینه‌ها را مقایسه کنید تا فصل مناسب سفر به استانبول را پیدا کنید.",
       lead: "هر فصل در استانبول حال‌وهوای متفاوتی دارد. روزهای معتدل برای گشت شهری مناسب‌اند و فصل‌های خلوت‌تر می‌توانند هزینه سفر را کاهش دهند.",
       points: [
         "بهار و اوایل پاییز معمولاً برای پیاده‌روی و بازدید از فضای باز دلپذیرتر هستند.",
@@ -149,7 +158,8 @@
       category: "iran-tourism",
       image: "hotel.jpg",
       alt: "اتاق روشن و آرام هتل",
-      excerpt: "موقعیت، امکانات و بودجه را بسنجید تا هتل مناسب سفر خود به کیش را انتخاب کنید.",
+      excerpt:
+        "موقعیت، امکانات و بودجه را بسنجید تا هتل مناسب سفر خود به کیش را انتخاب کنید.",
       lead: "هتل مناسب در کیش باید با هدف سفر شما هماهنگ باشد. نزدیکی به ساحل، مراکز خرید یا تفریحات و همچنین خدمات رفت‌وآمد از معیارهای مهم انتخاب هستند.",
       points: [
         "موقعیت هتل را نسبت به برنامه روزانه و مسیرهای رفت‌وآمد مقایسه کنید.",
@@ -164,7 +174,8 @@
       category: "world-tourism",
       image: "istanbul.jpg",
       alt: "مسجد اورتاکوی در ساحل بسفر استانبول",
-      excerpt: "دیدنی‌های تاریخی و محله‌های زنده استانبول را برای یک برنامه چندروزه دسته‌بندی کنید.",
+      excerpt:
+        "دیدنی‌های تاریخی و محله‌های زنده استانبول را برای یک برنامه چندروزه دسته‌بندی کنید.",
       lead: "استانبول مجموعه‌ای از بناهای تاریخی، محله‌های پرجنب‌وجوش و مسیرهای ساحلی است. دسته‌بندی دیدنی‌ها بر اساس منطقه از رفت‌وآمدهای اضافه جلوگیری می‌کند.",
       points: [
         "برای دیدن ایاصوفیه، مسجد آبی و کاخ توپکاپی یک روز کامل به منطقه تاریخی اختصاص دهید.",
@@ -183,13 +194,27 @@
       "travel-to-tbilisi",
       "affordable-travel-destinations",
     ],
-    "travel-guide": ["travel-to-istanbul", "best-time-dubai", "best-time-istanbul"],
-    "iran-tourism": ["kish-attractions", "isfahan-shopping", "best-hotels-kish"],
-    "world-tourism": ["istanbul-attractions", "affordable-travel-destinations", "travel-to-tbilisi"],
+    "travel-guide": [
+      "travel-to-istanbul",
+      "best-time-dubai",
+      "best-time-istanbul",
+    ],
+    "iran-tourism": [
+      "kish-attractions",
+      "isfahan-shopping",
+      "best-hotels-kish",
+    ],
+    "world-tourism": [
+      "istanbul-attractions",
+      "affordable-travel-destinations",
+      "travel-to-tbilisi",
+    ],
   };
 
-  const articleHref = (slug) => `single.html?article=${encodeURIComponent(slug)}`;
-  const categoryHref = (key) => `category.html?category=${encodeURIComponent(key)}`;
+  const articleHref = (slug) =>
+    `single.html?article=${encodeURIComponent(slug)}`;
+  const categoryHref = (key) =>
+    `category.html?category=${encodeURIComponent(key)}`;
 
   const articleCardMarkup = (slug) => {
     const article = articles[slug];
@@ -216,7 +241,9 @@
   const carouselSectionMarkup = (categoryKey) => {
     const category = categories[categoryKey];
     const cards = lists[categoryKey]
-      .map((slug) => `<li class="splide__slide">${articleCardMarkup(slug)}</li>`)
+      .map(
+        (slug) => `<li class="splide__slide">${articleCardMarkup(slug)}</li>`,
+      )
       .join("");
 
     return `
@@ -225,16 +252,16 @@
           <h2 class="heading blog-card-preview__heading">${category.title}</h2>
           <a class="article-section__all" href="${categoryHref(categoryKey)}">
             مشاهده همه
-            <img src="${assetRoot}icons/arrow-left.svg" alt="">
+            <span class="icon-arrow" aria-hidden="true"></span>
           </a>
         </div>
         <div class="article-section__carousel">
           <div class="splide__arrows blog-card-preview__arrows">
             <button class="splide__arrow splide__arrow--prev blog-card-preview__arrow" type="button" aria-label="مقاله قبلی">
-              <img src="${assetRoot}icons/arrow-left.svg" alt="">
+              <span class="icon-arrow" aria-hidden="true"></span>
             </button>
             <button class="splide__arrow splide__arrow--next blog-card-preview__arrow" type="button" aria-label="مقاله بعدی">
-              <img src="${assetRoot}icons/arrow-left.svg" alt="">
+              <span class="icon-arrow" aria-hidden="true"></span>
             </button>
           </div>
           <div class="splide__track">
@@ -293,7 +320,9 @@
   };
 
   const enhanceHomepageCards = () => {
-    const latestSection = document.querySelector('[data-article-list="latest"]');
+    const latestSection = document.querySelector(
+      '[data-article-list="latest"]',
+    );
     latestSection?.setAttribute("data-article-carousel", "");
     latestSection
       ?.querySelectorAll(".article-card")
@@ -344,7 +373,11 @@
 
     const extraSections = document.querySelector("[data-homepage-sections]");
     if (extraSections) {
-      extraSections.innerHTML = ["travel-guide", "iran-tourism", "world-tourism"]
+      extraSections.innerHTML = [
+        "travel-guide",
+        "iran-tourism",
+        "world-tourism",
+      ]
         .map(carouselSectionMarkup)
         .join("");
     }
@@ -354,8 +387,12 @@
     const articlePage = document.querySelector("[data-single-article]");
     if (!articlePage) return;
 
-    const requestedSlug = new URLSearchParams(window.location.search).get("article");
-    const slug = articles[requestedSlug] ? requestedSlug : "flight-ticket-guide";
+    const requestedSlug = new URLSearchParams(window.location.search).get(
+      "article",
+    );
+    const slug = articles[requestedSlug]
+      ? requestedSlug
+      : "flight-ticket-guide";
     const article = articles[slug];
     const category = categories[article.category];
 
@@ -370,7 +407,9 @@
       image.alt = article.alt;
     }
 
-    const heading = articlePage.querySelector(".article-hero__title-panel > h1");
+    const heading = articlePage.querySelector(
+      ".article-hero__title-panel > h1",
+    );
     if (heading) {
       heading.textContent = "";
       heading.append(`${article.titleLead} `);
@@ -397,10 +436,15 @@
     const archive = document.querySelector("[data-category-archive]");
     if (!archive) return;
 
-    const requestedCategory = new URLSearchParams(window.location.search).get("category");
-    const categoryKey = categories[requestedCategory] ? requestedCategory : "latest";
+    const requestedCategory = new URLSearchParams(window.location.search).get(
+      "category",
+    );
+    const categoryKey = categories[requestedCategory]
+      ? requestedCategory
+      : "latest";
     const category = categories[categoryKey];
-    const slugs = categoryKey === "latest" ? Object.keys(articles) : lists[categoryKey];
+    const slugs =
+      categoryKey === "latest" ? Object.keys(articles) : lists[categoryKey];
 
     document.title = `${category.title} | وبلاگ دنیارو`;
     const heading = archive.querySelector("[data-category-title]");
