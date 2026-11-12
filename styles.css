@@ -951,12 +951,18 @@ h3 {
     --featured-vertical-offset: calc(
       64px + 32px + var(--type-h1-line-height) + 30px
     );
+    --featured-width-size: min(
+      calc((100vw - 32px - var(--gap)) / 3.1),
+      calc((1200px - var(--gap)) / 3.1)
+    );
+    /* Short viewports may shrink the grid by at most 20% of its
+       width-based size; beyond that the page scrolls instead. */
     --small-size: max(
       14rem,
+      var(--featured-width-size) * 0.8,
       min(
         calc((100svh - var(--featured-vertical-offset) - var(--gap)) / 2),
-        calc((100vw - 32px - var(--gap)) / 3.1),
-        calc((1200px - var(--gap)) / 3.1)
+        var(--featured-width-size)
       )
     );
 
@@ -1347,10 +1353,14 @@ h3 {
     width: 100%;
   }
 
+  /* Clips like overflow: hidden, but 1rem looser so a hovered card's
+     scale(1.2) can pass the slide edge by a few px. Neighbouring cards sit
+     well beyond that margin, so they stay hidden. */
   & .article-section__carousel > .splide__track {
     width: min(calc(100% - 8rem), 75rem);
     margin-inline: auto;
-    overflow: hidden;
+    overflow: visible;
+    clip-path: inset(-1rem);
   }
 
   & .splide__list {
@@ -1370,7 +1380,7 @@ h3 {
   }
 
   & .splide__slide > .article-card {
-    width: calc(100% / 1.2);
+    width: calc(100% / 1.15);
   }
 
   & .splide__slide:focus-within {
@@ -1444,26 +1454,21 @@ h3 {
   width: min(calc(100% - 8rem), 75rem);
   margin-bottom: 1.5rem;
   margin-inline: auto;
+  /* Cards render at 1/1.15 of their slide, so their edges sit
+     (1 - 1/1.15) / 2 of a slide inside the track. Inset the title and button
+     by the same amount.
+     Slide = (track - (perPage - 1) * 1.5rem gap) / perPage, as in
+     blog-carousel.js. */
+  --carousel-per-page: 3;
+  padding-inline: calc(
+    (min(100% - 8rem, 75rem) - (var(--carousel-per-page) - 1) * 1.5rem) /
+      var(--carousel-per-page) * (1 - 1 / 1.15) / 2
+  );
 
   & > .heading,
   & > .blog-card-preview__heading {
     margin: 0;
     text-align: right;
-  }
-}
-
-@media (max-width: 1327px) {
-  .blog-card-preview .article-section__carousel > .splide__track,
-  .article-section__header {
-    width: min(calc(100% - 2rem), 75rem);
-  }
-
-  .blog-card-preview .splide__arrow--next {
-    left: max(1rem, calc((100% - 75rem) / 2 + 0.5rem));
-  }
-
-  .blog-card-preview .splide__arrow--prev {
-    right: max(1rem, calc((100% - 75rem) / 2 + 0.5rem));
   }
 }
 
@@ -1533,11 +1538,27 @@ h3 {
     width: calc(100% - 1rem);
   }
 
+  .article-section__header {
+    padding-inline: 0;
+  }
+
   .blog-card-preview {
+    & .splide__slide > .article-card {
+      width: calc(100% / 1.2);
+    }
+
     & .splide__slide.is-active {
       --article-slide-stack-delay: 0ms;
 
       z-index: 3;
+    }
+
+    /* The 1/1.2 card already fits its scale(1.2) inside the slide, so the
+       desktop clip margin isn't needed; without it the active card's shadow
+       would show as a hard-edged band around the track. */
+    & .article-section__carousel > .splide__track {
+      overflow: hidden;
+      clip-path: none;
     }
 
     & .splide__arrow {
@@ -1547,12 +1568,13 @@ h3 {
       border-radius: 0.875rem;
     }
 
+    /* 16px from the viewport edges; the carousel spans the full width here */
     & .splide__arrow--next {
-      left: 0.5rem;
+      left: 16px;
     }
 
     & .splide__arrow--prev {
-      right: 0.5rem;
+      right: 16px;
     }
   }
 }
@@ -1574,6 +1596,7 @@ h3 {
   --article-card-excerpt-opacity: 0;
   --article-card-cta-height: 15%;
   --article-card-cta-gap: 0px;
+  --article-card-cta-bg: rgb(var(--overlay-rgb) / 32%);
   --article-card-label-height: 0px;
   --article-card-label-opacity: 0;
   --article-card-image-scale: 1;
@@ -1628,10 +1651,10 @@ h3 {
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      rgb(var(--overlay-rgb) / 10%) 0%,
-      rgb(var(--overlay-rgb) / 22%) 48%,
-      rgb(var(--overlay-rgb) / 64%) 78%,
-      rgb(var(--overlay-rgb) / 92%) 100%
+      rgb(var(--overlay-rgb) / 0%) 0%,
+      rgb(var(--overlay-rgb) / 6%) 55%,
+      rgb(var(--overlay-rgb) / 40%) 78%,
+      rgb(var(--overlay-rgb) / 88%) 100%
     );
     opacity: var(--article-card-shade-opacity);
     transition: opacity 420ms var(--ease-out-soft);
@@ -1774,12 +1797,15 @@ h3 {
     line-height: var(--type-button-line-height);
     text-align: center;
     text-decoration: none;
-    /* background: var(--article-card-accent); */
+    /* Dark tint keeps the label readable on any photo; it turns brand pink
+       when the card expands (hover, keyboard focus, mobile active). */
+    background-color: var(--article-card-cta-bg);
     border-radius: clamp(0.85rem, 4.2cqi, 1.25rem);
     text-shadow: 0 1px 2px rgb(var(--overlay-rgb) / 45%);
     transition:
       height var(--article-card-duration) var(--ease-out-soft),
       gap var(--article-card-duration) ease,
+      background-color var(--article-card-duration) ease,
       outline-offset 150ms ease;
 
     & > span {
@@ -1826,6 +1852,7 @@ h3 {
     --article-card-excerpt-opacity: 1;
     --article-card-cta-height: 29%;
     --article-card-cta-gap: 0.55rem;
+    --article-card-cta-bg: var(--article-card-accent);
     --article-card-label-height: 5em;
     --article-card-label-opacity: 1;
     --article-card-image-scale: 1.05;
@@ -1843,20 +1870,31 @@ h3 {
 
 /* Category archives */
 .category-archive {
+  --archive-gutter: clamp(1rem, 3vw, 2rem);
+
   box-sizing: border-box;
-  width: min(100%, 75rem);
+  /* Content box (heading row and grid) is 75rem / 1200px wide at most */
+  width: min(100%, 75rem + var(--archive-gutter) * 2);
   min-height: 60vh;
   margin-inline: auto;
-  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem);
+  padding: clamp(3rem, 6vw, 5rem) var(--archive-gutter);
   overflow: hidden;
 }
 
 .category-archive__header {
+  --archive-columns: 3;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
+  /* Align title and link with the card edges: each card sits
+     (1 - 1/1.15) / 2 of a column inside its column (1.5rem column gap). */
+  padding-inline: calc(
+    (100% - (var(--archive-columns) - 1) * 1.5rem) / var(--archive-columns) *
+      (1 - 1 / 1.15) / 2
+  );
 
   & > .heading {
     margin: 0;
@@ -1881,16 +1919,27 @@ h3 {
 .category-archive__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  /* Column gap matches the homepage carousel gap (blog-carousel.js) */
+  gap: clamp(2.5rem, 5vw, 4.5rem) 1.5rem;
   align-items: center;
 
+  /* Same sizing as the homepage carousel: the card is 1/1.15 of its column,
+     leaving room for the shared hover scale(1.2). */
   & > .article-card {
-    width: calc(100% / 1.2);
+    width: calc(100% / 1.15);
     margin-inline: auto;
   }
 }
 
 @media (max-width: 1023px) {
+  .article-section__header {
+    --carousel-per-page: 2;
+  }
+
+  .category-archive__header {
+    --archive-columns: 2;
+  }
+
   .category-archive__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1907,12 +1956,20 @@ h3 {
     font-size: 0.75rem;
   }
 
+  .category-archive {
+    --archive-gutter: 16px;
+  }
+
+  .category-archive__header {
+    padding-inline: 0;
+  }
+
   .category-archive__grid {
     grid-template-columns: 1fr;
   }
 
   .category-archive__grid > .article-card {
-    width: min(83.333%, 22rem);
+    width: 100%;
   }
 }
 
@@ -1928,6 +1985,7 @@ h3 {
     --article-card-excerpt-opacity: 1;
     --article-card-cta-height: 29%;
     --article-card-cta-gap: 0.55rem;
+    --article-card-cta-bg: var(--article-card-accent);
     --article-card-label-height: 5em;
     --article-card-label-opacity: 1;
     --article-card-image-scale: 1.05;
@@ -1954,6 +2012,7 @@ h3 {
     --article-card-excerpt-opacity: 1;
     --article-card-cta-height: 29%;
     --article-card-cta-gap: 0.55rem;
+    --article-card-cta-bg: var(--article-card-accent);
     --article-card-label-height: 5em;
     --article-card-label-opacity: 1;
     --article-card-image-scale: 1.05;

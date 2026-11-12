@@ -86,6 +86,7 @@
         "قوانین بار و استرداد در پروازهای سیستمی و چارتر می‌تواند متفاوت باشد.",
         "زمان رفت‌وآمد تا فرودگاه و فاصله مناسب برای پروازهای اتصال‌دار را در نظر بگیرید.",
       ],
+      tags: ["خرید بلیط هواپیما", "راهنمای سفر", "نکات سفر", "پرواز داخلی"],
     },
     "travel-to-tbilisi": {
       title: "راهنمای سفر به تفلیس؛ شهری برای فرهنگ و طبیعت",
@@ -427,8 +428,27 @@
         <h2>نکات کلیدی</h2>
         <ul>${article.points.map((point) => `<li>${point}</li>`).join("")}</ul>
         <h2>جمع‌بندی</h2>
-        <p>با برنامه‌ریزی مرحله‌به‌مرحله و بررسی اطلاعات به‌روز، می‌توانید انتخاب مطمئن‌تری داشته باشید و از زمان سفر بهتر استفاده کنید.</p>
-        <p><a href="${categoryHref(article.category)}">مشاهده مقاله‌های بیشتر در دسته ${category.title}</a></p>`;
+        <p>با برنامه‌ریزی مرحله‌به‌مرحله و بررسی اطلاعات به‌روز، می‌توانید انتخاب مطمئن‌تری داشته باشید و از زمان سفر بهتر استفاده کنید.</p>`;
+
+      // Articles without their own tags fall back to their category name.
+      // Chips stay non-interactive until tag archive pages exist.
+      const tags = article.tags ?? [category.title];
+      body.insertAdjacentHTML(
+        "afterend",
+        `
+        <section class="article-tags" aria-labelledby="article-tags-label">
+          <h2 class="article-tags__label" id="article-tags-label">برچسب‌ها</h2>
+          <ul class="article-tags__list">${tags
+            .map((tag) => `<li><span class="article-tags__tag">${tag}</span></li>`)
+            .join("")}</ul>
+        </section>
+        <nav class="article-more" aria-label="مقاله‌های بیشتر">
+          <a class="article-more__link" href="${categoryHref(article.category)}">
+            <span>مشاهده مقاله‌های بیشتر در دسته ${category.title}</span>
+            <span class="icon-arrow" aria-hidden="true"></span>
+          </a>
+        </nav>`,
+      );
     }
   };
 

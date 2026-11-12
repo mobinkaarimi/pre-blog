@@ -1,13 +1,21 @@
 .single-article {
-  --single-accent: #e20074;
+  --single-accent: var(--color-brand);
   --hero-radius: clamp(1.25rem, 2.4vw, 2rem);
   --hero-curve: clamp(2.5rem, 5vw, 4.25rem);
-  --hero-overlap: clamp(5rem, 9vw, 7rem);
+  /* The panel's rounded top corner and the ::after piece below it are two
+     quarter circles of radius --hero-curve stacked on the panel edge. They
+     meet tangentially (one smooth S-curve) only when the overlap is exactly
+     two radii; any other value makes them intersect and leaves a spike. */
+  --hero-overlap: calc(var(--hero-curve) * 2);
   --single-page-space: clamp(1.5rem, 6vw, 4rem);
+  /* Title text and article body share this right-hand inset */
+  --article-inset: 40px;
+  /* Comfortable Persian reading measure at the 1rem / 2rem body type */
+  --article-measure: 44rem;
 
   width: calc(100% - var(--single-page-space));
   max-width: 75rem;
-  padding-block: clamp(1rem, 3vw, 2.5rem) 0;
+  padding-block: clamp(1rem, 3vw, 2.5rem) clamp(3rem, 6vw, 5rem);
   margin-inline: auto;
   color: var(--text-primary);
   direction: rtl;
@@ -30,7 +38,10 @@
     overflow: hidden;
     isolation: isolate;
     background: #303136;
-    border-radius: var(--hero-radius);
+    /* Bottom-right stays square: the white title panel covers it. Rounding it
+       would clip the photo with an antialiased edge that bleeds through the
+       panel as a dark hairline (same fix as the homepage cards). */
+    border-radius: var(--hero-radius) var(--hero-radius) 0 var(--hero-radius);
 
     & > img {
       position: absolute;
@@ -62,7 +73,10 @@
     position: relative;
     z-index: 2;
     width: min(88%, 61.25rem);
-    padding: 20px 40px 10px;
+    /* Always reach the image bottom, even for a one-line title, so the
+       panel covers the square corner and the lower curve piece lines up */
+    min-height: var(--hero-overlap);
+    padding: 20px var(--article-inset) 10px;
     margin-top: calc(-1 * var(--hero-overlap));
     margin-inline-end: auto;
     background: #fff;
@@ -87,6 +101,8 @@
       right: 0;
     }
 
+    /* Starts exactly where the panel's top corner ends (overlap - curve =
+       curve), so both arcs share a vertical tangent at the panel edge. */
     &::after {
       top: calc(var(--hero-overlap) - var(--hero-curve));
       left: calc(-1 * var(--hero-curve));
@@ -97,11 +113,12 @@
       z-index: 1;
       margin: 0;
       color: var(--text-primary);
-      font-size: clamp(2rem, 4.2vw, 3.75rem);
+      font-size: clamp(1.75rem, 3vw, 2.75rem);
       font-weight: var(--type-h1-weight);
-      line-height: 1.45;
+      line-height: 1.5;
       text-align: right;
       text-wrap: balance;
+      overflow-wrap: anywhere;
 
       & > span {
         color: var(--single-accent);
@@ -111,99 +128,283 @@
 
   & .article-body {
     width: 100%;
-
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
     background: #fff;
+
+    /* Content, tags and the closing link share one reading column, aligned
+       with the title text */
+    & > * {
+      max-width: var(--article-measure);
+      margin-inline: var(--article-inset) auto;
+    }
   }
 
+  /* Article content (static now, Gutenberg output later) */
   & .article-body__content {
-    width: 100%;
-    /* max-width: 51.25rem; */
-    margin-inline: auto;
     color: var(--text-secondary);
     font-size: var(--type-article-size);
     font-weight: var(--type-body-weight);
     line-height: var(--type-article-line-height);
     text-align: right;
-  }
+    overflow-wrap: break-word;
 
-  & .article-body__lead {
-    color: var(--text-secondary);
-    font-size: var(--type-article-size);
-    font-weight: var(--type-body-weight);
-    line-height: var(--type-article-line-height);
-  }
-
-  & .article-body section {
-    margin-top: clamp(2.75rem, 6vw, 4.75rem);
-  }
-
-  & .article-body h2,
-  & .article-body h3,
-  & .article-body p,
-  & .article-body ul,
-  & .article-body ol {
-    margin: 0;
-  }
-
-  & .article-body h2 {
-    color: var(--text-primary);
-    font-size: var(--type-h2-size);
-    font-weight: var(--type-h2-weight);
-    line-height: var(--type-h2-line-height);
-
-    &::after {
-      display: block;
-      width: 3rem;
-      height: 0.25rem;
-      margin-top: 0.75rem;
-      content: "";
-      background: var(--single-accent);
-      border-radius: 999px;
-    }
-  }
-
-  & .article-body h3 {
-    margin-top: 2rem;
-    color: var(--text-primary);
-    font-size: var(--type-h3-size);
-    font-weight: var(--type-h3-weight);
-    line-height: var(--type-h3-line-height);
-  }
-
-  & .article-body p,
-  & .article-body ul,
-  & .article-body ol {
-    margin-top: 1.25rem;
-  }
-
-  & .article-body ul,
-  & .article-body ol {
-    padding-right: 1.5rem;
-  }
-
-  & .article-body li {
-    padding-right: 0.35rem;
-
-    & + li {
-      margin-top: 0.45rem;
+    & h2,
+    & h3,
+    & h4,
+    & p,
+    & ul,
+    & ol,
+    & blockquote,
+    & figure,
+    & table,
+    & section {
+      margin: 0;
     }
 
-    &::marker {
-      color: var(--single-accent);
+    /* Flow spacing: every block is separated from the one before it */
+    & > * + *,
+    & section > * + * {
+      margin-top: 1.25rem;
+    }
+
+    /* Static <section> wrappers add no space; their h2 provides it */
+    & > section {
+      margin-top: 0;
+    }
+
+    /* Headings: more space above than below, so each one groups with the
+       text that follows it */
+    & h2 {
+      color: var(--text-primary);
+      font-size: var(--type-h2-size);
+      font-weight: var(--type-h2-weight);
+      line-height: var(--type-h2-line-height);
+
+      &::after {
+        display: block;
+        width: 2.5rem;
+        height: 3px;
+        margin-top: 0.5rem;
+        content: "";
+        background: var(--single-accent);
+        border-radius: 999px;
+      }
+    }
+
+    & h3 {
+      color: var(--text-primary);
+      font-size: var(--type-h3-size);
+      font-weight: var(--type-h3-weight);
+      line-height: var(--type-h3-line-height);
+    }
+
+    & h4 {
+      color: var(--text-primary);
+      font-size: var(--type-body-size);
+      font-weight: 600;
+      line-height: var(--type-body-line-height);
+    }
+
+    & * + h2,
+    & section:not(:first-child) > h2:first-child {
+      margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    }
+
+    & * + h3 {
+      margin-top: 2.25rem;
+    }
+
+    & * + h4 {
+      margin-top: 1.75rem;
+    }
+
+    & h2 + *,
+    & h3 + *,
+    & h4 + * {
+      margin-top: 0.875rem;
+    }
+
+    & h2 + * {
+      margin-top: 1.125rem;
+    }
+
+    & ul,
+    & ol {
+      padding-right: 1.5rem;
+    }
+
+    & li {
+      padding-right: 0.35rem;
+
+      & + li {
+        margin-top: 0.5rem;
+      }
+
+      &::marker {
+        color: var(--single-accent);
+        font-weight: 700;
+      }
+    }
+
+    & strong,
+    & b {
+      color: var(--text-primary);
       font-weight: 700;
     }
+
+    & a {
+      color: var(--single-accent);
+      text-decoration: underline;
+      text-decoration-color: rgb(226 0 116 / 35%);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.35em;
+      transition:
+        color 150ms ease,
+        text-decoration-color 150ms ease;
+
+      &:hover {
+        color: var(--color-brand-hover);
+        text-decoration-color: currentColor;
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--single-accent);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+
+    & blockquote {
+      padding: 0.25rem 1.25rem 0.25rem 0;
+      color: var(--text-primary);
+      border-right: 3px solid var(--single-accent);
+    }
+
+    & img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 1rem;
+    }
+
+    & figcaption {
+      margin-top: 0.625rem;
+      color: var(--text-muted);
+      font-size: var(--type-caption-size);
+      line-height: var(--type-caption-line-height);
+      text-align: center;
+    }
+
+    & table {
+      width: 100%;
+      font-size: var(--type-caption-size);
+      border-collapse: collapse;
+    }
+
+    & th,
+    & td {
+      padding: 0.625rem 0.75rem;
+      text-align: right;
+      border-bottom: 1px solid var(--color-surface-muted);
+    }
+
+    & th {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
   }
 
-  & .article-body strong {
+  /* Tags: non-interactive chips for now; an <a class="article-tags__tag">
+     gets the hover/focus states once WordPress tag archives exist */
+  & .article-tags {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-surface-muted);
+  }
+
+  & .article-tags__label {
+    margin: 0 0 0.75rem;
     color: var(--text-primary);
-    font-weight: 700;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
+
+  & .article-tags__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  & .article-tags__tag {
+    display: inline-block;
+    padding: 0.25rem 0.875rem;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.5rem;
+    text-decoration: none;
+    background: var(--color-surface-muted);
+    border-radius: 999px;
+    transition: var(--control-transition);
+  }
+
+  & a.article-tags__tag:hover,
+  & a.article-tags__tag:focus-visible {
+    color: var(--control-hover-color);
+    background: var(--control-hover-bg);
+  }
+
+  & a.article-tags__tag:focus-visible {
+    outline: 2px solid var(--single-accent);
+    outline-offset: 2px;
+  }
+
+  /* Closing link: same quiet control style as the homepage "مشاهده همه" */
+  & .article-more {
+    margin-top: 1.5rem;
+  }
+
+  & .article-more__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.45rem 0.95rem;
+    color: var(--control-color);
+    font-size: 0.875rem;
+    font-weight: var(--type-button-weight);
+    line-height: 1.5;
+    text-decoration: none;
+    background: var(--control-bg);
+    border-radius: 0.75rem;
+    transition: var(--control-transition);
+
+    & > .icon-arrow {
+      flex: 0 0 auto;
+      width: 1.125rem;
+    }
+
+    &:hover {
+      color: var(--control-hover-color);
+      background: var(--control-hover-bg);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--single-accent);
+      outline-offset: 3px;
+    }
   }
 }
 
 @media (max-width: 47.9375rem) {
   .single-article {
     --hero-curve: clamp(2rem, 9vw, 3rem);
-    --hero-overlap: clamp(4rem, 18vw, 5.5rem);
+    /* 16px gutters; the body uses the full width inside them */
+    --single-page-space: 2rem;
+    --article-inset: 0px;
 
     & .article-hero__media {
       height: clamp(18rem, 74vw, 26rem);
@@ -212,31 +413,33 @@
     & .article-hero__title-panel {
       width: calc(100% - var(--hero-curve));
       padding: clamp(1.25rem, 5vw, 2rem) clamp(1.1rem, 5vw, 2rem)
-        clamp(1.5rem, 6vw, 2.25rem);
+        clamp(1.25rem, 5vw, 1.75rem);
 
       & > h1 {
-        font-size: clamp(1.65rem, 7vw, 2.5rem);
-        line-height: 1.55;
+        font-size: clamp(1.375rem, 6vw, 1.875rem);
+        line-height: 1.6;
         text-wrap: wrap;
       }
     }
 
     & .article-body {
-      padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+      padding-top: 1.25rem;
     }
   }
 }
 
 @media (max-width: 29.9375rem) {
   .single-article {
-    --single-page-space: 1.5rem;
-
     & .article-hero__media {
       height: clamp(17rem, 78vw, 21rem);
     }
+  }
+}
 
-    & .article-body {
-      padding-top: 1.25rem;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .single-article .article-body__content a,
+  .single-article .article-tags__tag,
+  .single-article .article-more__link {
+    transition-duration: 0.01ms;
   }
 }
